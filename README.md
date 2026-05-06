@@ -1,17 +1,17 @@
 # 🥗 your.mealbox
 
-Site web de commande pour **your.mealbox** – service de meal prep livré à domicile au Québec.
+Website for **your.mealbox** – a meal prep delivery service based in Quebec, Canada.
 
-Les clients choisissent une formule via le site et soumettent un formulaire de commande. La commande est automatiquement enregistrée dans un fichier Excel et des emails de confirmation sont envoyés au client et à l'administrateur.
+Customers choose a plan on the site and submit an order form. The order is automatically saved to an Excel file and confirmation emails are sent to both the customer and the admin.
 
 ---
 
-## Stack technique
+## Tech stack
 
-- **Frontend** : HTML / CSS / JavaScript (vanilla, aucun framework)
-- **Backend** : Python / Flask
-- **Données** : openpyxl → `commandes.xlsx`
-- **Emails** : Gmail SMTP SSL (port 465)
+- **Frontend**: HTML / CSS / JavaScript (vanilla, no framework)
+- **Backend**: Python / Flask
+- **Data**: openpyxl → `commandes.xlsx`
+- **Emails**: Gmail SMTP SSL (port 465)
 
 ---
 
@@ -21,41 +21,41 @@ Les clients choisissent une formule via le site et soumettent un formulaire de c
 pip install flask openpyxl
 ```
 
-Crée un fichier `.env` à la racine :
+Create a `.env` file at the project root:
 
 ```env
-EMAIL_USER=ton.adresse@gmail.com
-EMAIL_PASS=mot_de_passe_application_gmail
+EMAIL_USER=your.address@gmail.com
+EMAIL_PASS=your_gmail_app_password
 ```
 
-> Le mot de passe d'application Gmail se génère dans **Compte Google → Sécurité → Mots de passe des applications**.
+> A Gmail app password can be generated under **Google Account → Security → App passwords**.
 
 ---
 
-## Lancer le serveur
+## Running the server
 
 ```bash
 python server.py
 ```
 
-Le site est accessible sur [http://localhost:3000](http://localhost:3000).
+The site is available at [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Fonctionnement
+## How it works
 
-1. Le client remplit le formulaire de commande sur le site.
-2. Le frontend envoie un `POST /api/commande` au serveur Flask.
-3. Le serveur valide les champs et ajoute une ligne dans `commandes.xlsx`.
-4. Deux emails HTML sont envoyés : un récapitulatif à l'admin, une confirmation au client.
+1. The customer fills out the order form on the site.
+2. The frontend sends a `POST /api/commande` request to the Flask server.
+3. The server validates the fields and appends a row to `commandes.xlsx`.
+4. Two HTML emails are sent: a summary to the admin, and a confirmation to the customer.
 
-> `commandes.xlsx` est généré automatiquement à la première commande et est exclu du dépôt git.
+> `commandes.xlsx` is created automatically on the first order and is excluded from the git repository.
 
 ---
 
-## Variables d'environnement
+## Environment variables
 
 | Variable | Description |
 |---|---|
-| `EMAIL_USER` | Adresse Gmail utilisée pour envoyer les emails |
-| `EMAIL_PASS` | Mot de passe d'application Gmail |
+| `EMAIL_USER` | Gmail address used to send emails |
+| `EMAIL_PASS` | Gmail app password |
