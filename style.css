@@ -181,10 +181,8 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(135deg, #F1F8E9 0%, #FFFFFF 50%, #FFF8F0 100%);
   display: flex;
   align-items: center;
-  padding: 120px 24px 80px;
+  padding: 120px max(24px, calc((100vw - 1160px) / 2)) 80px;
   gap: 60px;
-  max-width: 1160px;
-  margin: 0 auto;
 }
 .hero-content { flex: 1; }
 .badge {
@@ -284,7 +282,12 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   box-shadow: inset 0 4px 20px rgba(0,0,0,0.05);
 }
-.plate-emoji { font-size: 6rem; }
+.plate-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
 .floating-card {
   position: absolute;
   background: var(--white);
@@ -297,7 +300,13 @@ img { max-width: 100%; display: block; }
   white-space: nowrap;
   z-index: 10;
 }
-.fc-icon { font-size: 1.5rem; flex-shrink: 0; }
+.fc-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 .fc-text { display: flex; flex-direction: column; }
 .fc-text strong { font-size: 0.85rem; font-weight: 700; line-height: 1.2; color: var(--dark); }
 .fc-text span { font-size: 0.7rem; color: var(--gray-500); font-weight: 400; }
@@ -331,7 +340,7 @@ img { max-width: 100%; display: block; }
 /* ===========================
    SECTIONS (Shared)
 =========================== */
-.section { padding: 100px 0; }
+.section { padding: clamp(60px, 8vw, 100px) 0; }
 .section-header {
   text-align: center;
   margin-bottom: 60px;
@@ -390,7 +399,15 @@ img { max-width: 100%; display: block; }
   letter-spacing: 2px;
   margin-bottom: 8px;
 }
-.step-icon { font-size: 2.8rem; margin-bottom: 16px; }
+.step-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: block;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+}
 .step h3 {
   font-size: 1.1rem;
   font-weight: 700;
@@ -500,7 +517,14 @@ img { max-width: 100%; display: block; }
   white-space: nowrap;
 }
 .plan-top { text-align: center; margin-bottom: 20px; }
-.plan-icon { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+.plan-img {
+  width: calc(100% + 56px);
+  margin: -36px -28px 20px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px 14px 0 0;
+  display: block;
+}
 .plan-top h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
 .plan-sub { font-size: 0.85rem; color: var(--gray-500); }
 .plan-price { text-align: center; margin-bottom: 24px; }
@@ -534,7 +558,7 @@ img { max-width: 100%; display: block; }
 =========================== */
 .valeurs {
   background: linear-gradient(135deg, var(--green) 0%, #388E3C 100%);
-  padding: 80px 0;
+  padding: clamp(50px, 6vw, 80px) 0;
 }
 .valeurs-grid {
   display: grid;
@@ -542,7 +566,15 @@ img { max-width: 100%; display: block; }
   gap: 28px;
 }
 .valeur-item { text-align: center; color: white; }
-.valeur-icon { font-size: 2.8rem; display: block; margin-bottom: 14px; }
+.valeur-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  display: block;
+  box-shadow: 0 4px 16px rgba(255,255,255,.25);
+}
 .valeur-item h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
 .valeur-item p { font-size: 0.88rem; opacity: 0.85; line-height: 1.6; }
 
@@ -598,7 +630,7 @@ img { max-width: 100%; display: block; }
 =========================== */
 .cta-band {
   background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
-  padding: 80px 0;
+  padding: clamp(50px, 6vw, 80px) 0;
   text-align: center;
 }
 .cta-band h2 {
@@ -788,6 +820,7 @@ img { max-width: 100%; display: block; }
     padding: 110px 24px 60px;
     text-align: center;
     min-height: auto;
+    gap: 32px;
   }
   .hero-sub { margin: 0 auto 36px; }
   .hero-cta { justify-content: center; }
@@ -823,4 +856,17 @@ img { max-width: 100%; display: block; }
 
 @media (max-width: 480px) {
   .valeurs-grid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 1400px) {
+  .hero {
+    padding-top: 140px;
+    padding-bottom: 100px;
+    gap: 80px;
+  }
+  .hero-img-wrap { width: 460px; height: 460px; }
+  .hero-plate { width: 340px; height: 340px; }
+  .plate-inner { width: 270px; height: 270px; }
+  .container { max-width: 1280px; }
+  .hero { padding-left: max(24px, calc((100vw - 1280px) / 2)); padding-right: max(24px, calc((100vw - 1280px) / 2)); }
 }
