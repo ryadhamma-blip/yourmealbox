@@ -1,0 +1,27 @@
+# Variables d'environnement (contient les mots de passe - NE JAMAIS pousser !)
+.env
+
+# Commandes Excel (données privées)
+commandes.xlsx
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+*.egg-info/
+
+# Node.js
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
