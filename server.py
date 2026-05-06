@@ -1,7 +1,7 @@
 """
-your.mealbox – Serveur Flask
-• Sert les fichiers statiques (index.html, style.css, script.js)
-• POST /api/commande → sauvegarde dans commandes.xlsx + envoi d'emails
+your.mealbox – Flask server
+• Serves static files (index.html, style.css, script.js)
+• POST /api/commande → saves to commandes.xlsx + sends emails
 """
 
 import os, smtplib, datetime
@@ -13,14 +13,14 @@ from flask import Flask, request, jsonify, send_from_directory
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
-# ─── Config ──────────────────────────────────────────────────────────────────
+# ─── Configuration ───────────────────────────────────────────────────────────
 BASE_DIR    = Path(__file__).parent
 ORDERS_FILE = BASE_DIR / "commandes.xlsx"
 ADMIN_EMAIL = "amiratouati89@gmail.com"
 
-# → Remplis tes identifiants Gmail ici (ou utilise des variables d'environnement)
-EMAIL_USER = os.getenv("EMAIL_USER", "")   # ton adresse Gmail
-EMAIL_PASS = os.getenv("EMAIL_PASS", "")   # mot de passe d'application Gmail
+# → Fill in your Gmail credentials here (or use environment variables)
+EMAIL_USER = os.getenv("EMAIL_USER", "")   # your Gmail address
+EMAIL_PASS = os.getenv("EMAIL_PASS", "")   # Gmail app password
 
 app = Flask(__name__, static_folder=str(BASE_DIR), static_url_path="")
 
@@ -56,7 +56,7 @@ def ajouter_commande(data: dict):
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    # Couleur alternée
+    # Alternating row color
     row_idx  = ws.max_row + 1
     bg_color = "F9FBF9" if row_idx % 2 == 0 else "FFFFFF"
     fill     = PatternFill("solid", fgColor=bg_color)
@@ -71,17 +71,17 @@ def ajouter_commande(data: dict):
         cell.fill       = fill
         cell.border     = border
         cell.alignment  = Alignment(vertical="center", wrap_text=True)
-        if col_idx == 7:                          # colonne Statut → orange
+        if col_idx == 7:                          # Status column → orange
             cell.font = Font(color="E65100", bold=True)
         ws.row_dimensions[row_idx].height = 22
 
     wb.save(ORDERS_FILE)
-    print(f"✅ Commande sauvegardée : {data['prenom']} – {data['formule']}")
+    print(f"✅ Order saved: {data['prenom']} – {data['formule']}")
 
 # ─── Email ───────────────────────────────────────────────────────────────────
 def envoyer_email(to: str, subject: str, html: str):
     if not EMAIL_USER or not EMAIL_PASS:
-        print("⚠️  Email non envoyé : EMAIL_USER / EMAIL_PASS non configurés dans .env ou les variables d'environnement.")
+        print("⚠️  Email not sent: EMAIL_USER / EMAIL_PASS not configured in .env or environment variables.")
         return
 
     msg = MIMEMultipart("alternative")
@@ -93,7 +93,7 @@ def envoyer_email(to: str, subject: str, html: str):
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(EMAIL_USER, EMAIL_PASS)
         smtp.sendmail(EMAIL_USER, to, msg.as_string())
-    print(f"📧 Email envoyé → {to}")
+    print(f"📧 Email sent → {to}")
 
 def email_admin(data):
     html = f"""
@@ -162,19 +162,19 @@ def commande():
     try:
         ajouter_commande(data)
     except Exception as e:
-        print("Erreur Excel :", e)
-        return jsonify(success=False, error="Erreur sauvegarde Excel."), 500
+        print("Excel error:", e)
+        return jsonify(success=False, error="Error saving to Excel."), 500
 
-    # 2. Emails (non bloquant en cas d'erreur)
+    # 2. Emails (non-blocking on failure)
     try:
         email_admin(data)
         email_client(data)
     except Exception as e:
-        print("⚠️  Erreur email :", e)
+        print("⚠️  Email error:", e)
 
     return jsonify(success=True, message="Commande enregistrée avec succès !")
 
 if __name__ == "__main__":
-    print("\n🥗 your.mealbox – Serveur démarré sur http://localhost:3000")
-    print(f"📊 Commandes → {ORDERS_FILE}\n")
+    print("\n🥗 your.mealbox – Server running at http://localhost:3000")
+    print(f"📊 Orders → {ORDERS_FILE}\n")
     app.run(host="0.0.0.0", port=3000, debug=False)
