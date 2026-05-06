@@ -406,7 +406,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ===========================
-   FORMULES
+   PLANS
 =========================== */
 .formules { background: var(--white); }
 
@@ -530,7 +530,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ===========================
-   VALEURS
+   VALUES
 =========================== */
 .valeurs {
   background: linear-gradient(135deg, var(--green) 0%, #388E3C 100%);
@@ -547,7 +547,7 @@ img { max-width: 100%; display: block; }
 .valeur-item p { font-size: 0.88rem; opacity: 0.85; line-height: 1.6; }
 
 /* ===========================
-   TÉMOIGNAGES
+   TESTIMONIALS
 =========================== */
 .temoignages { background: var(--off-white); }
 .temoignages-grid {
