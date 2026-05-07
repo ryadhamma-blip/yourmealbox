@@ -138,12 +138,14 @@ img { max-width: 100%; display: block; }
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.25rem;
-  color: var(--dark);
+  flex-shrink: 0;
 }
-.logo-icon { font-size: 1.5rem; }
-.logo-text strong { color: var(--green); }
+.logo-img {
+  height: 52px;
+  width: 52px;
+  object-fit: contain;
+  display: block;
+}
 .nav-links {
   display: flex;
   gap: 28px;
