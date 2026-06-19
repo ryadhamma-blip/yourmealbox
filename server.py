@@ -18,43 +18,42 @@ def init_workbook():
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = "Commandes"
-        ws.append(["Date", "Nom", "Email", "Téléphone", "Adresse", "Formule", "Jour de livraison", "Note"])
+        ws.append(["Date", "Prénom", "Email", "Formule", "Jour de livraison", "Message"])
         wb.save(ORDERS_FILE)
 
 
 def save_order(data):
-    init_workbook()
-    wb = load_workbook(ORDERS_FILE)
-    ws = wb.active
-    ws.append([
-        datetime.now().strftime("%Y-%m-%d %H:%M"),
-        data.get("prenom", ""),
-        data.get("email", ""),
-        data.get("telephone", ""),
-        data.get("adresse", ""),
-        data.get("formule", ""),
-        data.get("jourLivraison", ""),
-        data.get("note", ""),
-    ])
-    wb.save(ORDERS_FILE)
+    try:
+        init_workbook()
+        wb = load_workbook(ORDERS_FILE)
+        ws = wb.active
+        ws.append([
+            datetime.now().strftime("%Y-%m-%d %H:%M"),
+            data.get("prenom", ""),
+            data.get("email", ""),
+            data.get("formule", ""),
+            data.get("jourLivraison", ""),
+            data.get("message", ""),
+        ])
+        wb.save(ORDERS_FILE)
+    except Exception as e:
+        print(f"Excel save error (non-fatal): {e}")
 
 
 def send_email(data):
     email_user = os.getenv("EMAIL_USER")
     email_pass = os.getenv("EMAIL_PASS")
     if not email_user or not email_pass:
-        return
+        print("EMAIL_USER or EMAIL_PASS not set — skipping email")
+        return False
 
-    body = f"""
-Nouvelle commande reçue sur YourMealBox!
+    body = f"""Nouvelle commande YourMealBox!
 
 Prénom : {data.get('prenom', '')}
 Email : {data.get('email', '')}
-Téléphone : {data.get('telephone', '')}
-Adresse : {data.get('adresse', '')}
 Formule : {data.get('formule', '')}
 Jour de livraison : {data.get('jourLivraison', '')}
-Note : {data.get('note', '')}
+Message : {data.get('message', '')}
 
 Date : {datetime.now().strftime("%Y-%m-%d %H:%M")}
 """
@@ -69,8 +68,11 @@ Date : {datetime.now().strftime("%Y-%m-%d %H:%M")}
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(email_user, email_pass)
             server.sendmail(email_user, ADMIN_EMAIL, msg.as_string())
+        print(f"Email sent to {ADMIN_EMAIL}")
+        return True
     except Exception as e:
         print(f"Email error: {e}")
+        return False
 
 
 @app.route("/")
@@ -81,15 +83,16 @@ def index():
 @app.route("/api/commande", methods=["POST"])
 def commande():
     data = request.get_json(force=True, silent=True) or {}
+    print(f"Received order: prenom={data.get('prenom')}, email={data.get('email')}, formule={data.get('formule')}")
+
     if not data.get("prenom") or not data.get("email"):
-        return jsonify({"error": "Nom et email requis"}), 400
-    try:
-        save_order(data)
-        send_email(data)
-        return jsonify({"success": True, "message": "Commande reçue!"}), 200
-    except Exception as e:
-        print(f"Order error: {e}")
-        return jsonify({"error": "Erreur serveur"}), 500
+        return jsonify({"error": "Prénom et email requis"}), 400
+
+    save_order(data)
+    email_sent = send_email(data)
+    print(f"Order processed. Email sent: {email_sent}")
+
+    return jsonify({"success": True, "message": "Commande reçue!"}), 200
 
 
 if __name__ == "__main__":
