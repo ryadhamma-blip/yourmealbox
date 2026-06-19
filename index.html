@@ -495,86 +495,106 @@
         <!-- 1 · Halal -->
         <div class="stamp-badge">
           <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="60" cy="60" r="49" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
-            <text font-family="Georgia,serif" font-size="9" font-weight="bold" fill="currentColor" text-anchor="middle">
-              <textPath href="#c1">100% HALAL · CERTIFIÉ ·</textPath>
-            </text>
-            <defs><path id="c1" d="M60,60 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-            <!-- Arabic Halal symbol simplified -->
-            <text x="60" y="52" text-anchor="middle" font-size="18" fill="currentColor" font-family="serif">حلال</text>
-            <text x="60" y="70" text-anchor="middle" font-size="8" fill="currentColor" font-family="Georgia,serif" font-weight="bold" letter-spacing="2">HALAL</text>
-            <line x1="38" y1="76" x2="82" y2="76" stroke="currentColor" stroke-width="1"/>
-            <text x="60" y="86" text-anchor="middle" font-size="7" fill="currentColor" font-family="Georgia,serif" letter-spacing="1">CERTIFIÉ</text>
+            <defs><clipPath id="cl1"><circle cx="60" cy="60" r="45"/></clipPath></defs>
+            <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 3.5"/>
+            <g clip-path="url(#cl1)">
+              <text x="60" y="27" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="7.5" font-weight="bold" letter-spacing="2">100%</text>
+              <line x1="38" y1="32" x2="82" y2="32" stroke="currentColor" stroke-width="0.75"/>
+              <text x="61" y="60" text-anchor="middle" fill="currentColor" font-family="serif" font-size="24">حلال</text>
+              <line x1="38" y1="70" x2="82" y2="70" stroke="currentColor" stroke-width="0.75"/>
+              <text x="60" y="79" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="7.5" font-weight="bold" letter-spacing="2">HALAL</text>
+              <text x="60" y="89" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="6" letter-spacing="0.5">CERTIFIÉ</text>
+            </g>
           </svg>
         </div>
 
         <!-- 2 · Recettes Authentiques -->
         <div class="stamp-badge">
           <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="60" cy="60" r="49" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
-            <text font-family="Georgia,serif" font-size="8.5" font-weight="bold" fill="currentColor" text-anchor="middle">
-              <textPath href="#c2">RECETTES · AUTHENTIQUES ·</textPath>
-            </text>
-            <defs><path id="c2" d="M60,60 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-            <!-- Chef hat simplified with paths -->
-            <path d="M45 65 Q45 55 52 53 Q52 47 60 47 Q68 47 68 53 Q75 55 75 65 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            <rect x="45" y="65" width="30" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="38" y1="79" x2="82" y2="79" stroke="currentColor" stroke-width="1"/>
-            <text x="60" y="89" text-anchor="middle" font-size="6.5" fill="currentColor" font-family="Georgia,serif" letter-spacing="1.5">FAIT MAISON</text>
+            <defs><clipPath id="cl2"><circle cx="60" cy="60" r="45"/></clipPath></defs>
+            <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 3.5"/>
+            <g clip-path="url(#cl2)">
+              <text x="60" y="27" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="7" font-weight="bold" letter-spacing="0">RECETTES</text>
+              <line x1="36" y1="32" x2="84" y2="32" stroke="currentColor" stroke-width="0.75"/>
+              <!-- Fork -->
+              <line x1="44" y1="37" x2="44" y2="76" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="39" y1="37" x2="39" y2="51" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="44" y1="37" x2="44" y2="51" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="49" y1="37" x2="49" y2="51" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M39 51 Q39 59 44 61 Q49 59 49 51" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <!-- Knife -->
+              <line x1="75" y1="37" x2="75" y2="76" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M75 37 Q85 47 85 60 L75 64 Z" fill="currentColor" opacity="0.6"/>
+              <line x1="36" y1="80" x2="84" y2="80" stroke="currentColor" stroke-width="0.75"/>
+              <text x="60" y="89" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="6" font-weight="bold" letter-spacing="0">AUTHENTIQUES</text>
+            </g>
           </svg>
         </div>
 
         <!-- 3 · Qualité Premium -->
         <div class="stamp-badge stamp-badge--featured">
           <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="3"/>
-            <circle cx="60" cy="60" r="49" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 4"/>
-            <circle cx="60" cy="60" r="43" fill="none" stroke="currentColor" stroke-width="0.5"/>
-            <text font-family="Georgia,serif" font-size="9" font-weight="bold" fill="currentColor" text-anchor="middle">
-              <textPath href="#c3">★ QUALITÉ · PREMIUM ★</textPath>
-            </text>
-            <defs><path id="c3" d="M60,60 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-            <!-- Crown -->
-            <path d="M40 72 L44 56 L52 64 L60 50 L68 64 L76 56 L80 72 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            <line x1="40" y1="75" x2="80" y2="75" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="44" cy="56" r="2.5" fill="currentColor"/>
-            <circle cx="60" cy="50" r="2.5" fill="currentColor"/>
-            <circle cx="76" cy="56" r="2.5" fill="currentColor"/>
+            <defs><clipPath id="cl3"><circle cx="60" cy="60" r="45"/></clipPath></defs>
+            <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.5 3.5"/>
+            <g clip-path="url(#cl3)">
+              <text x="60" y="27" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="7.5" font-weight="bold" letter-spacing="0.5">QUALITÉ</text>
+              <line x1="36" y1="32" x2="84" y2="32" stroke="currentColor" stroke-width="1"/>
+              <!-- Crown (scaled ~0.88 from center) -->
+              <path d="M27 74 L33 51 L50 65 L60 40 L70 65 L87 51 L93 74 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+              <rect x="27" y="74" width="66" height="6" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="33" cy="51" r="3" fill="currentColor"/>
+              <circle cx="60" cy="40" r="3" fill="currentColor"/>
+              <circle cx="87" cy="51" r="3" fill="currentColor"/>
+              <line x1="36" y1="83" x2="84" y2="83" stroke="currentColor" stroke-width="1"/>
+              <text x="60" y="91" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="8" font-weight="bold" letter-spacing="1">PREMIUM</text>
+            </g>
           </svg>
         </div>
 
         <!-- 4 · Viande de Qualité -->
         <div class="stamp-badge">
           <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="60" cy="60" r="49" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
-            <text font-family="Georgia,serif" font-size="8.5" font-weight="bold" fill="currentColor" text-anchor="middle">
-              <textPath href="#c4">VIANDE · DE QUALITÉ ·</textPath>
-            </text>
-            <defs><path id="c4" d="M60,60 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-            <!-- Cow silhouette simplified -->
-            <path d="M38 68 Q38 58 44 56 L44 51 L47 51 L47 56 Q52 54 60 54 Q68 54 73 56 L73 51 L76 51 L76 56 Q82 58 82 68 Q82 74 78 74 L42 74 Q38 74 38 68Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <line x1="38" y1="79" x2="82" y2="79" stroke="currentColor" stroke-width="1"/>
-            <text x="60" y="89" text-anchor="middle" font-size="6.5" fill="currentColor" font-family="Georgia,serif" letter-spacing="1.5">FRAÎCHE</text>
+            <defs><clipPath id="cl4"><circle cx="60" cy="60" r="45"/></clipPath></defs>
+            <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 3.5"/>
+            <g clip-path="url(#cl4)">
+              <text x="60" y="27" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="7" font-weight="bold" letter-spacing="0">VIANDE DE</text>
+              <!-- Côtelette : os en haut, viande en bas -->
+              <!-- Os (shaft + knob) -->
+              <line x1="64" y1="50" x2="72" y2="36" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+              <ellipse cx="73" cy="35" rx="4.5" ry="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <!-- Corps de la viande -->
+              <path d="M37 72 C35 58 42 47 56 46 C70 45 80 54 79 66 C78 76 68 81 55 81 C44 81 38 78 37 72 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+              <!-- Ligne de gras / persillage -->
+              <path d="M41 70 C43 61 51 55 61 55 C69 55 75 60 77 67" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="36" y1="84" x2="84" y2="84" stroke="currentColor" stroke-width="0.75"/>
+              <text x="60" y="93" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="7.5" font-weight="bold" letter-spacing="1">QUALITÉ</text>
+            </g>
           </svg>
         </div>
 
         <!-- 5 · 100% Naturel -->
         <div class="stamp-badge">
           <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="60" cy="60" r="49" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
-            <text font-family="Georgia,serif" font-size="9" font-weight="bold" fill="currentColor" text-anchor="middle">
-              <textPath href="#c5">100% NATUREL · SANS ADDITIFS ·</textPath>
-            </text>
-            <defs><path id="c5" d="M60,60 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-            <!-- Leaf -->
-            <path d="M60 78 Q60 60 44 52 Q52 52 62 56 Q72 60 72 70 Q72 78 60 78Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            <line x1="60" y1="78" x2="60" y2="52" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/>
-            <line x1="52" y1="60" x2="60" y2="65" stroke="currentColor" stroke-width="1"/>
-            <line x1="55" y1="70" x2="60" y2="73" stroke="currentColor" stroke-width="1"/>
+            <defs><clipPath id="cl5"><circle cx="60" cy="60" r="45"/></clipPath></defs>
+            <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 3.5"/>
+            <g clip-path="url(#cl5)">
+              <text x="60" y="27" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="7.5" font-weight="bold" letter-spacing="2">100%</text>
+              <line x1="42" y1="32" x2="78" y2="32" stroke="currentColor" stroke-width="0.75"/>
+              <!-- Leaf (scaled 0.9 from center) -->
+              <path d="M60 80 C38 71 37 47 60 38 C83 47 82 71 60 80 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+              <line x1="60" y1="80" x2="60" y2="38" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 3"/>
+              <line x1="60" y1="69" x2="49" y2="59" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="60" y1="59" x2="49" y2="49" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="60" y1="69" x2="71" y2="59" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="60" y1="59" x2="71" y2="49" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="42" y1="83" x2="78" y2="83" stroke="currentColor" stroke-width="0.75"/>
+              <text x="60" y="91" text-anchor="middle" fill="currentColor" font-family="Georgia,serif" font-size="8" font-weight="bold" letter-spacing="1">NATUREL</text>
+            </g>
           </svg>
         </div>
 
