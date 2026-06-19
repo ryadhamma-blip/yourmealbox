@@ -10,7 +10,7 @@ from openpyxl import load_workbook
 app = Flask(__name__, static_folder=".", static_url_path="")
 
 ORDERS_FILE = "commandes.xlsx"
-ADMIN_EMAIL = "amiratouati89@gmail.com"
+ADMIN_EMAIL = "info@yourmealbox.com"
 
 
 def init_workbook():
