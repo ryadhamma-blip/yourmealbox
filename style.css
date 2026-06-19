@@ -1180,18 +1180,42 @@ img { max-width: 100%; display: block; }
 .badges-wrap {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
 }
-.badges-img {
-  max-width: 780px;
-  width: 100%;
-  filter: var(--badges-filter);
-  opacity: 0.85;
-  transition: opacity 400ms ease;
-}
-.badges-img:hover { opacity: 1; }
 
-@media (max-width: 600px) {
-  .badges-img { max-width: 100%; }
+.stamp-badge {
+  width: 110px;
+  height: 110px;
+  color: var(--text-muted);
+  opacity: 0.75;
+  transition: opacity 400ms ease, color 400ms ease, transform 400ms var(--ease-spring);
+  flex-shrink: 0;
+}
+.stamp-badge:hover {
+  opacity: 1;
+  color: var(--gold);
+  transform: scale(1.08);
+}
+.stamp-badge--featured {
+  width: 126px;
+  height: 126px;
+  color: var(--gold);
+  opacity: 0.9;
+}
+.stamp-badge--featured:hover { opacity: 1; transform: scale(1.08); }
+
+.stamp-badge svg { width: 100%; height: 100%; }
+
+@media (max-width: 768px) {
+  .badges-wrap { gap: 20px; }
+  .stamp-badge { width: 88px; height: 88px; }
+  .stamp-badge--featured { width: 100px; height: 100px; }
+}
+@media (max-width: 480px) {
+  .stamp-badge { width: 72px; height: 72px; }
+  .stamp-badge--featured { width: 84px; height: 84px; }
 }
 
 /* ===========================
