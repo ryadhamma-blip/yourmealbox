@@ -91,6 +91,7 @@ togglePlan.addEventListener('change', () => {
   const isMonthly = togglePlan.checked;
   weeklyPrices.forEach(p => p.classList.toggle('hidden', isMonthly));
   monthlyPrices.forEach(p => p.classList.toggle('hidden', !isMonthly));
+  if (typeof updateSelectionUI === 'function') updateSelectionUI();
 });
 
 // ============================
@@ -171,6 +172,13 @@ const PLAN_MAP = [
   { max: 20, valueFr: 'Menu 5 Plats – 230 $ CAD/sem',    valueEn: '5-Dish Menu – $230 CAD/wk',     labelFr: 'Menu 5 Plats (5 plats/sem)',     labelEn: '5-Dish Menu (5 dishes/wk)' },
 ];
 
+const PLAN_MAP_MONTHLY = [
+  { max: 4,  valueFr: '1 Plat Familial – 247 $ CAD/mois', valueEn: '1 Family Dish – $247 CAD/mo', labelFr: '1 Plat Familial · 247 $/mois (-5%)', labelEn: '1 Family Dish · $247/mo (-5%)' },
+  { max: 12, valueFr: 'Menu 3 Plats – 547 $ CAD/mois',    valueEn: '3-Dish Menu – $547 CAD/mo',   labelFr: 'Menu 3 Plats · 547 $/mois (-5%)',    labelEn: '3-Dish Menu · $547/mo (-5%)' },
+  { max: 16, valueFr: 'Menu 4 Plats – 714 $ CAD/mois',    valueEn: '4-Dish Menu – $714 CAD/mo',   labelFr: 'Menu 4 Plats · 714 $/mois (-5%)',    labelEn: '4-Dish Menu · $714/mo (-5%)' },
+  { max: 20, valueFr: 'Menu 5 Plats – 874 $ CAD/mois',    valueEn: '5-Dish Menu – $874 CAD/mo',   labelFr: 'Menu 5 Plats · 874 $/mois (-5%)',    labelEn: '5-Dish Menu · $874/mo (-5%)' },
+];
+
 function getMealName(el) {
   const span = el.querySelector('span[data-fr]');
   if (!span) return el.textContent.trim();
@@ -178,7 +186,8 @@ function getMealName(el) {
 }
 
 function getPlanForCount(count) {
-  return PLAN_MAP.find(p => count <= p.max) || PLAN_MAP[PLAN_MAP.length - 1];
+  const map = togglePlan.checked ? PLAN_MAP_MONTHLY : PLAN_MAP;
+  return map.find(p => count <= p.max) || map[map.length - 1];
 }
 
 function updateSelectionUI() {
@@ -212,10 +221,14 @@ function updateSelectionUI() {
   selectionPlan.textContent = `→ ${planLabel}`;
 
   // Build textarea content
+  const isMonthly = togglePlan.checked;
   const names = Array.from(selectedItems).map(el => `• ${getMealName(el)}`).join('\n');
+  const subscriptionNote = isMonthly
+    ? (currentLang === 'fr' ? ' — Abonnement mensuel (-5%)' : ' — Monthly subscription (-5%)')
+    : '';
   const header = currentLang === 'fr'
-    ? `${dishes} plat${dishes > 1 ? 's' : ''} sélectionné${dishes > 1 ? 's' : ''} (${portions} repas au total, 4 pers./plat) :\n`
-    : `${dishes} dish${dishes > 1 ? 'es' : ''} selected (${portions} meals total, 4 people/dish):\n`;
+    ? `${dishes} plat${dishes > 1 ? 's' : ''} sélectionné${dishes > 1 ? 's' : ''} (${portions} repas au total, 4 pers./plat)${subscriptionNote} :\n`
+    : `${dishes} dish${dishes > 1 ? 'es' : ''} selected (${portions} meals total, 4 people/dish)${subscriptionNote}:\n`;
   document.getElementById('f-message').value = header + names;
 }
 
