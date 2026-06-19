@@ -28,12 +28,12 @@ def save_order(data):
     ws = wb.active
     ws.append([
         datetime.now().strftime("%Y-%m-%d %H:%M"),
-        data.get("nom", ""),
+        data.get("prenom", ""),
         data.get("email", ""),
         data.get("telephone", ""),
         data.get("adresse", ""),
         data.get("formule", ""),
-        data.get("jour", ""),
+        data.get("jourLivraison", ""),
         data.get("note", ""),
     ])
     wb.save(ORDERS_FILE)
@@ -48,12 +48,12 @@ def send_email(data):
     body = f"""
 Nouvelle commande reçue sur YourMealBox!
 
-Nom : {data.get('nom', '')}
+Prénom : {data.get('prenom', '')}
 Email : {data.get('email', '')}
 Téléphone : {data.get('telephone', '')}
 Adresse : {data.get('adresse', '')}
 Formule : {data.get('formule', '')}
-Jour de livraison : {data.get('jour', '')}
+Jour de livraison : {data.get('jourLivraison', '')}
 Note : {data.get('note', '')}
 
 Date : {datetime.now().strftime("%Y-%m-%d %H:%M")}
@@ -62,7 +62,7 @@ Date : {datetime.now().strftime("%Y-%m-%d %H:%M")}
     msg = MIMEMultipart()
     msg["From"] = email_user
     msg["To"] = ADMIN_EMAIL
-    msg["Subject"] = f"Nouvelle commande – {data.get('nom', 'Client')}"
+    msg["Subject"] = f"Nouvelle commande – {data.get('prenom', 'Client')}"
     msg.attach(MIMEText(body, "plain", "utf-8"))
 
     try:
@@ -81,7 +81,7 @@ def index():
 @app.route("/api/commande", methods=["POST"])
 def commande():
     data = request.get_json(force=True, silent=True) or {}
-    if not data.get("nom") or not data.get("email"):
+    if not data.get("prenom") or not data.get("email"):
         return jsonify({"error": "Nom et email requis"}), 400
     try:
         save_order(data)
