@@ -165,9 +165,10 @@ const selectionPlan  = document.getElementById('selectionPlan');
 const selectionClear = document.getElementById('selectionClear');
 
 const PLAN_MAP = [
-  { max: 5,  valueFr: 'Starter Box – 70 $ CAD/sem',      valueEn: 'Starter Box – $70 CAD/wk',       labelFr: 'Starter Box (5 repas/sem)',      labelEn: 'Starter Box (5 meals/wk)' },
-  { max: 10, valueFr: 'Balance Box – 130 $ CAD/sem',     valueEn: 'Balance Box – $130 CAD/wk',      labelFr: 'Balance Box (10 repas/sem)',     labelEn: 'Balance Box (10 meals/wk)' },
-  { max: 15, valueFr: 'Premium Box – 187.50 $ CAD/sem',  valueEn: 'Premium Box – $187.50 CAD/wk',   labelFr: 'Premium Box (15 repas/sem)',     labelEn: 'Premium Box (15 meals/wk)' },
+  { max: 4,  valueFr: '1 Plat Familial – 65 $ CAD/sem',  valueEn: '1 Family Dish – $65 CAD/wk',    labelFr: '1 Plat Familial (1 plat/sem)',   labelEn: '1 Family Dish (1 dish/wk)' },
+  { max: 12, valueFr: 'Menu 3 Plats – 144 $ CAD/sem',    valueEn: '3-Dish Menu – $144 CAD/wk',     labelFr: 'Menu 3 Plats (3 plats/sem)',     labelEn: '3-Dish Menu (3 dishes/wk)' },
+  { max: 16, valueFr: 'Menu 4 Plats – 188 $ CAD/sem',    valueEn: '4-Dish Menu – $188 CAD/wk',     labelFr: 'Menu 4 Plats (4 plats/sem)',     labelEn: '4-Dish Menu (4 dishes/wk)' },
+  { max: 20, valueFr: 'Menu 5 Plats – 230 $ CAD/sem',    valueEn: '5-Dish Menu – $230 CAD/wk',     labelFr: 'Menu 5 Plats (5 plats/sem)',     labelEn: '5-Dish Menu (5 dishes/wk)' },
 ];
 
 function getMealName(el) {
