@@ -2,6 +2,7 @@
    DESIGN TOKENS
 =========================== */
 :root {
+  --announce-h: 40px;
   /* Light mode (default) */
   --bg:          #faf9f6;
   --bg-card:     #ffffff;
@@ -103,6 +104,72 @@ img { max-width: 100%; display: block; }
   background-repeat: repeat;
   background-size: 200px 200px;
 }
+
+/* ===========================
+   ANNOUNCE BAR
+=========================== */
+.announce-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: var(--announce-h);
+  background: var(--gold);
+  color: #080f09;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 48px;
+  overflow: hidden;
+  transition: transform 400ms var(--ease-out), opacity 400ms ease;
+}
+.announce-bar.hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+  opacity: 0;
+}
+.announce-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  line-height: 1.4;
+}
+.announce-inner svg { flex-shrink: 0; }
+.announce-link {
+  font-weight: 700;
+  text-decoration: underline;
+  color: #080f09;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.announce-link:hover { opacity: 0.75; }
+.announce-close {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.12);
+  border: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #080f09;
+  transition: background 250ms ease;
+}
+.announce-close:hover { background: rgba(0,0,0,0.22); }
 
 /* ===========================
    EYEBROW TAGS
@@ -241,7 +308,7 @@ img { max-width: 100%; display: block; }
 =========================== */
 .navbar {
   position: fixed;
-  top: 20px;
+  top: calc(var(--announce-h) + 20px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
@@ -1455,6 +1522,101 @@ img { max-width: 100%; display: block; }
 .toast.error { border-color: rgba(239,68,68,0.4); }
 
 /* ===========================
+   INSTAGRAM SECTION
+=========================== */
+.insta-section { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.insta-post {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: block;
+  background: var(--bg-raised);
+}
+
+.insta-post img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out);
+  display: block;
+}
+.insta-post:hover img { transform: scale(1.07); }
+
+.insta-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 350ms ease;
+}
+.insta-post:hover .insta-overlay { background: rgba(0, 0, 0, 0.38); }
+
+.insta-overlay svg {
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 350ms ease, transform 350ms var(--ease-spring);
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+}
+.insta-post:hover .insta-overlay svg { opacity: 1; transform: scale(1); }
+
+.insta-follow {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.insta-handle {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--text-sub);
+  letter-spacing: 0.01em;
+}
+
+.btn-insta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 22%, #dc2743 45%, #cc2366 72%, #bc1888 100%);
+  transition: transform 600ms var(--ease-spring), box-shadow 600ms var(--ease-spring);
+}
+.btn-insta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(220, 39, 67, 0.42);
+}
+.btn-insta .btn-icon { background: rgba(255,255,255,0.15); }
+
+@media (max-width: 768px) {
+  .insta-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+@media (max-width: 480px) {
+  .insta-grid { grid-template-columns: repeat(2, 1fr); }
+  .insta-handle { font-size: 1.3rem; }
+}
+
+/* ===========================
    FOOTER
 =========================== */
 .footer {
@@ -1533,7 +1695,7 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) {
   .navbar {
     width: calc(100% - 32px);
-    top: 12px;
+    top: calc(var(--announce-h) + 12px);
   }
   .nav-links { display: none; }
   .nav-right .btn-nav { display: none; }

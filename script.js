@@ -1,4 +1,20 @@
 // ============================
+// ANNOUNCE BAR
+// ============================
+const announceBar = document.getElementById('announceBar');
+const announceClose = document.getElementById('announceClose');
+
+if (sessionStorage.getItem('announceDismissed')) {
+  announceBar.classList.add('hidden');
+}
+
+announceClose.addEventListener('click', () => {
+  announceBar.classList.add('hidden');
+  document.documentElement.style.setProperty('--announce-h', '0px');
+  sessionStorage.setItem('announceDismissed', '1');
+});
+
+// ============================
 // LANGUAGE SYSTEM
 // ============================
 let currentLang = 'fr';
