@@ -232,6 +232,26 @@ function updateSelectionUI() {
   document.getElementById('f-message').value = header + names;
 }
 
+// Inject dish preview images
+document.querySelectorAll('.menu-item[data-img]').forEach(item => {
+  const preview = document.createElement('div');
+  preview.className = 'dish-preview';
+  const img = document.createElement('img');
+  img.src = item.dataset.img;
+  img.alt = item.querySelector('span[data-fr]')?.dataset.fr || '';
+  img.loading = 'lazy';
+  img.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!selectedItems.has(item)) {
+      selectedItems.add(item);
+      item.classList.add('selected');
+      updateSelectionUI();
+    }
+  });
+  preview.appendChild(img);
+  item.appendChild(preview);
+});
+
 document.querySelectorAll('.menu-item').forEach(item => {
   item.addEventListener('click', () => {
     if (selectedItems.has(item)) {

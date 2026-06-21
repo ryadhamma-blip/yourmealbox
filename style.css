@@ -1100,6 +1100,39 @@ img { max-width: 100%; display: block; }
   transform: scale(1.4);
 }
 
+/* Dish image preview on hover */
+.menu-item {
+  position: relative;
+}
+.dish-preview {
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) scale(0.93);
+  width: 180px;
+  height: 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 300;
+  border: 1px solid var(--gold-border);
+}
+.menu-item:hover .dish-preview {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1);
+}
+.dish-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+
 /* Selection bar */
 .selection-bar {
   display: none;
