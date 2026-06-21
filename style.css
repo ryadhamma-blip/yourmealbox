@@ -1104,26 +1104,29 @@ img { max-width: 100%; display: block; }
 .menu-item {
   position: relative;
 }
+.menu-item:hover {
+  z-index: 20;
+}
 .dish-preview {
   position: absolute;
-  left: calc(100% + 14px);
-  top: 50%;
-  transform: translateY(-50%) scale(0.93);
-  width: 180px;
-  height: 130px;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.93);
+  width: 200px;
+  height: 145px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.28);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.18s ease, transform 0.18s ease;
-  z-index: 300;
+  z-index: 400;
   border: 1px solid var(--gold-border);
 }
 .menu-item:hover .dish-preview {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(-50%) scale(1);
+  transform: translateX(-50%) scale(1);
 }
 .dish-preview img {
   width: 100%;
