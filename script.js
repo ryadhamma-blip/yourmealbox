@@ -316,6 +316,7 @@ contactForm.addEventListener('submit', async (e) => {
 
   const data = {
     prenom:        document.getElementById('f-prenom').value.trim(),
+    telephone:     document.getElementById('f-telephone').value.trim(),
     email:         document.getElementById('f-email').value.trim(),
     formule:       document.getElementById('f-formule').value,
     jourLivraison: document.getElementById('f-jour').value,

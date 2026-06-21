@@ -18,7 +18,7 @@ def init_workbook():
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = "Commandes"
-        ws.append(["Date", "Prénom", "Email", "Formule", "Jour de livraison", "Message"])
+        ws.append(["Date", "Prénom", "Téléphone", "Email", "Formule", "Jour de livraison", "Message"])
         wb.save(ORDERS_FILE)
 
 
@@ -30,6 +30,7 @@ def save_order(data):
         ws.append([
             datetime.now().strftime("%Y-%m-%d %H:%M"),
             data.get("prenom", ""),
+            data.get("telephone", ""),
             data.get("email", ""),
             data.get("formule", ""),
             data.get("jourLivraison", ""),
@@ -50,6 +51,7 @@ def send_email(data):
     body = f"""Nouvelle commande YourMealBox!
 
 Prénom : {data.get('prenom', '')}
+Téléphone : {data.get('telephone', '')}
 Email : {data.get('email', '')}
 Formule : {data.get('formule', '')}
 Jour de livraison : {data.get('jourLivraison', '')}
