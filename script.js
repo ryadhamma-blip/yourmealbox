@@ -2,6 +2,7 @@
 // LANGUAGE SYSTEM
 // ============================
 let currentLang = 'fr';
+let currentPersons = 4;
 
 function applyLanguage(lang) {
   currentLang = lang;
@@ -32,7 +33,7 @@ function applyLanguage(lang) {
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     applyLanguage(btn.dataset.lang);
-    // Refresh meal selection text in new language
+    updatePriceDisplay();
     if (typeof updateSelectionUI === 'function') updateSelectionUI();
   });
 });
@@ -91,8 +92,37 @@ togglePlan.addEventListener('change', () => {
   const isMonthly = togglePlan.checked;
   weeklyPrices.forEach(p => p.classList.toggle('hidden', isMonthly));
   monthlyPrices.forEach(p => p.classList.toggle('hidden', !isMonthly));
+  updatePriceDisplay();
   if (typeof updateSelectionUI === 'function') updateSelectionUI();
 });
+
+// ============================
+// PERSONS SELECTOR
+// ============================
+document.querySelectorAll('.persons-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.persons-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentPersons = parseInt(btn.dataset.persons);
+    updatePriceDisplay();
+    if (typeof updateSelectionUI === 'function') updateSelectionUI();
+  });
+});
+
+function updatePriceDisplay() {
+  const key = `p${currentPersons}`;
+  document.querySelectorAll('.price[data-p1]').forEach(el => {
+    const num = el.querySelector('.price-num');
+    if (num) num.textContent = el.dataset[key];
+  });
+  document.querySelectorAll('.price-per[data-per1-fr]').forEach(el => {
+    const frVal = el.dataset[`per${currentPersons}Fr`];
+    const enVal = el.dataset[`per${currentPersons}En`];
+    if (frVal) el.dataset.fr = frVal;
+    if (enVal) el.dataset.en = enVal;
+    el.textContent = currentLang === 'fr' ? frVal : enVal;
+  });
+}
 
 // ============================
 // SCROLL REVEAL
@@ -165,19 +195,50 @@ const selectionCount = document.getElementById('selectionCount');
 const selectionPlan  = document.getElementById('selectionPlan');
 const selectionClear = document.getElementById('selectionClear');
 
-const PLAN_MAP = [
-  { max: 4,  valueFr: '1 Plat Familial – 65 $ CAD/sem',  valueEn: '1 Family Dish – $65 CAD/wk',    labelFr: '1 Plat Familial (1 plat/sem)',   labelEn: '1 Family Dish (1 dish/wk)' },
-  { max: 12, valueFr: 'Menu 3 Plats – 144 $ CAD/sem',    valueEn: '3-Dish Menu – $144 CAD/wk',     labelFr: 'Menu 3 Plats (3 plats/sem)',     labelEn: '3-Dish Menu (3 dishes/wk)' },
-  { max: 16, valueFr: 'Menu 4 Plats – 188 $ CAD/sem',    valueEn: '4-Dish Menu – $188 CAD/wk',     labelFr: 'Menu 4 Plats (4 plats/sem)',     labelEn: '4-Dish Menu (4 dishes/wk)' },
-  { max: 20, valueFr: 'Menu 5 Plats – 230 $ CAD/sem',    valueEn: '5-Dish Menu – $230 CAD/wk',     labelFr: 'Menu 5 Plats (5 plats/sem)',     labelEn: '5-Dish Menu (5 dishes/wk)' },
-];
-
-const PLAN_MAP_MONTHLY = [
-  { max: 4,  valueFr: '1 Plat Familial – 247 $ CAD/mois', valueEn: '1 Family Dish – $247 CAD/mo', labelFr: '1 Plat Familial · 247 $/mois (-5%)', labelEn: '1 Family Dish · $247/mo (-5%)' },
-  { max: 12, valueFr: 'Menu 3 Plats – 547 $ CAD/mois',    valueEn: '3-Dish Menu – $547 CAD/mo',   labelFr: 'Menu 3 Plats · 547 $/mois (-5%)',    labelEn: '3-Dish Menu · $547/mo (-5%)' },
-  { max: 16, valueFr: 'Menu 4 Plats – 714 $ CAD/mois',    valueEn: '4-Dish Menu – $714 CAD/mo',   labelFr: 'Menu 4 Plats · 714 $/mois (-5%)',    labelEn: '4-Dish Menu · $714/mo (-5%)' },
-  { max: 20, valueFr: 'Menu 5 Plats – 874 $ CAD/mois',    valueEn: '5-Dish Menu – $874 CAD/mo',   labelFr: 'Menu 5 Plats · 874 $/mois (-5%)',    labelEn: '5-Dish Menu · $874/mo (-5%)' },
-];
+const PLAN_DATA = {
+  4: {
+    weekly: [
+      { maxDishes: 1, valueFr: '1 Plat Familial – 65 $ CAD/sem',   valueEn: '1 Family Dish – $65 CAD/wk',   labelFr: '1 Plat Familial (1 plat/sem)',       labelEn: '1 Family Dish (1 dish/wk)' },
+      { maxDishes: 3, valueFr: 'Menu 3 Plats – 144 $ CAD/sem',     valueEn: '3-Dish Menu – $144 CAD/wk',    labelFr: 'Menu 3 Plats (3 plats/sem)',          labelEn: '3-Dish Menu (3 dishes/wk)' },
+      { maxDishes: 4, valueFr: 'Menu 4 Plats – 188 $ CAD/sem',     valueEn: '4-Dish Menu – $188 CAD/wk',    labelFr: 'Menu 4 Plats (4 plats/sem)',          labelEn: '4-Dish Menu (4 dishes/wk)' },
+      { maxDishes: 5, valueFr: 'Menu 5 Plats – 230 $ CAD/sem',     valueEn: '5-Dish Menu – $230 CAD/wk',    labelFr: 'Menu 5 Plats (5 plats/sem)',          labelEn: '5-Dish Menu (5 dishes/wk)' },
+    ],
+    monthly: [
+      { maxDishes: 1, valueFr: '1 Plat Familial – 247 $ CAD/mois', valueEn: '1 Family Dish – $247 CAD/mo',  labelFr: '1 Plat Familial · 247 $/mois (-5%)', labelEn: '1 Family Dish · $247/mo (-5%)' },
+      { maxDishes: 3, valueFr: 'Menu 3 Plats – 547 $ CAD/mois',    valueEn: '3-Dish Menu – $547 CAD/mo',    labelFr: 'Menu 3 Plats · 547 $/mois (-5%)',    labelEn: '3-Dish Menu · $547/mo (-5%)' },
+      { maxDishes: 4, valueFr: 'Menu 4 Plats – 714 $ CAD/mois',    valueEn: '4-Dish Menu – $714 CAD/mo',    labelFr: 'Menu 4 Plats · 714 $/mois (-5%)',    labelEn: '4-Dish Menu · $714/mo (-5%)' },
+      { maxDishes: 5, valueFr: 'Menu 5 Plats – 874 $ CAD/mois',    valueEn: '5-Dish Menu – $874 CAD/mo',    labelFr: 'Menu 5 Plats · 874 $/mois (-5%)',    labelEn: '5-Dish Menu · $874/mo (-5%)' },
+    ],
+  },
+  2: {
+    weekly: [
+      { maxDishes: 1, valueFr: '1 Plat – 32,50 $ CAD/sem (2 pers.)',   valueEn: '1 Dish – $32.50 CAD/wk (2 people)',   labelFr: '1 Plat · 32,50 $/sem · 2 pers.',   labelEn: '1 Dish · $32.50/wk · 2 people' },
+      { maxDishes: 3, valueFr: 'Menu 3 Plats – 78 $ CAD/sem (2 pers.)', valueEn: '3-Dish Menu – $78 CAD/wk (2 people)', labelFr: 'Menu 3 Plats · 78 $/sem · 2 pers.',  labelEn: '3-Dish Menu · $78/wk · 2 people' },
+      { maxDishes: 4, valueFr: 'Menu 4 Plats – 96 $ CAD/sem (2 pers.)', valueEn: '4-Dish Menu – $96 CAD/wk (2 people)', labelFr: 'Menu 4 Plats · 96 $/sem · 2 pers.',  labelEn: '4-Dish Menu · $96/wk · 2 people' },
+      { maxDishes: 5, valueFr: 'Menu 5 Plats – 120 $ CAD/sem (2 pers.)', valueEn: '5-Dish Menu – $120 CAD/wk (2 people)', labelFr: 'Menu 5 Plats · 120 $/sem · 2 pers.', labelEn: '5-Dish Menu · $120/wk · 2 people' },
+    ],
+    monthly: [
+      { maxDishes: 1, valueFr: '1 Plat – 124 $ CAD/mois (2 pers.)',   valueEn: '1 Dish – $124 CAD/mo (2 people)',   labelFr: '1 Plat · 124 $/mois (-5%) · 2 pers.',   labelEn: '1 Dish · $124/mo (-5%) · 2 people' },
+      { maxDishes: 3, valueFr: 'Menu 3 Plats – 296 $ CAD/mois (2 pers.)', valueEn: '3-Dish Menu – $296 CAD/mo (2 people)', labelFr: 'Menu 3 Plats · 296 $/mois (-5%) · 2 pers.', labelEn: '3-Dish Menu · $296/mo (-5%) · 2 people' },
+      { maxDishes: 4, valueFr: 'Menu 4 Plats – 365 $ CAD/mois (2 pers.)', valueEn: '4-Dish Menu – $365 CAD/mo (2 people)', labelFr: 'Menu 4 Plats · 365 $/mois (-5%) · 2 pers.', labelEn: '4-Dish Menu · $365/mo (-5%) · 2 people' },
+      { maxDishes: 5, valueFr: 'Menu 5 Plats – 456 $ CAD/mois (2 pers.)', valueEn: '5-Dish Menu – $456 CAD/mo (2 people)', labelFr: 'Menu 5 Plats · 456 $/mois (-5%) · 2 pers.', labelEn: '5-Dish Menu · $456/mo (-5%) · 2 people' },
+    ],
+  },
+  1: {
+    weekly: [
+      { maxDishes: 1, valueFr: '1 Plat – 16,25 $ CAD/sem (1 pers.)',  valueEn: '1 Dish – $16.25 CAD/wk (1 person)',  labelFr: '1 Plat · 16,25 $/sem · 1 pers.',  labelEn: '1 Dish · $16.25/wk · 1 person' },
+      { maxDishes: 3, valueFr: 'Menu 3 Plats – 39 $ CAD/sem (1 pers.)', valueEn: '3-Dish Menu – $39 CAD/wk (1 person)', labelFr: 'Menu 3 Plats · 39 $/sem · 1 pers.',  labelEn: '3-Dish Menu · $39/wk · 1 person' },
+      { maxDishes: 4, valueFr: 'Menu 4 Plats – 48 $ CAD/sem (1 pers.)', valueEn: '4-Dish Menu – $48 CAD/wk (1 person)', labelFr: 'Menu 4 Plats · 48 $/sem · 1 pers.',  labelEn: '4-Dish Menu · $48/wk · 1 person' },
+      { maxDishes: 5, valueFr: 'Menu 5 Plats – 60 $ CAD/sem (1 pers.)', valueEn: '5-Dish Menu – $60 CAD/wk (1 person)', labelFr: 'Menu 5 Plats · 60 $/sem · 1 pers.', labelEn: '5-Dish Menu · $60/wk · 1 person' },
+    ],
+    monthly: [
+      { maxDishes: 1, valueFr: '1 Plat – 62 $ CAD/mois (1 pers.)',  valueEn: '1 Dish – $62 CAD/mo (1 person)',  labelFr: '1 Plat · 62 $/mois (-5%) · 1 pers.',  labelEn: '1 Dish · $62/mo (-5%) · 1 person' },
+      { maxDishes: 3, valueFr: 'Menu 3 Plats – 148 $ CAD/mois (1 pers.)', valueEn: '3-Dish Menu – $148 CAD/mo (1 person)', labelFr: 'Menu 3 Plats · 148 $/mois (-5%) · 1 pers.', labelEn: '3-Dish Menu · $148/mo (-5%) · 1 person' },
+      { maxDishes: 4, valueFr: 'Menu 4 Plats – 182 $ CAD/mois (1 pers.)', valueEn: '4-Dish Menu – $182 CAD/mo (1 person)', labelFr: 'Menu 4 Plats · 182 $/mois (-5%) · 1 pers.', labelEn: '4-Dish Menu · $182/mo (-5%) · 1 person' },
+      { maxDishes: 5, valueFr: 'Menu 5 Plats – 228 $ CAD/mois (1 pers.)', valueEn: '5-Dish Menu – $228 CAD/mo (1 person)', labelFr: 'Menu 5 Plats · 228 $/mois (-5%) · 1 pers.', labelEn: '5-Dish Menu · $228/mo (-5%) · 1 person' },
+    ],
+  },
+};
 
 function getMealName(el) {
   const span = el.querySelector('span[data-fr]');
@@ -185,14 +246,15 @@ function getMealName(el) {
   return span.dataset[currentLang] || span.dataset.fr || span.textContent.trim();
 }
 
-function getPlanForCount(count) {
-  const map = togglePlan.checked ? PLAN_MAP_MONTHLY : PLAN_MAP;
-  return map.find(p => count <= p.max) || map[map.length - 1];
+function getPlanForCount(dishes) {
+  const period = togglePlan.checked ? 'monthly' : 'weekly';
+  const map = PLAN_DATA[currentPersons][period];
+  return map.find(p => dishes <= p.maxDishes) || map[map.length - 1];
 }
 
 function updateSelectionUI() {
   const dishes = selectedItems.size;
-  const portions = dishes * 4;
+  const portions = dishes * currentPersons;
 
   selectionCount.textContent = portions;
 
@@ -210,8 +272,8 @@ function updateSelectionUI() {
     return;
   }
 
-  // Determine plan based on total portions
-  const plan = getPlanForCount(portions);
+  // Determine plan based on dish count
+  const plan = getPlanForCount(dishes);
 
   // Update plan select
   document.getElementById('f-formule').value = plan.valueFr;
@@ -227,8 +289,8 @@ function updateSelectionUI() {
     ? (currentLang === 'fr' ? ' — Abonnement mensuel (-5%)' : ' — Monthly subscription (-5%)')
     : '';
   const header = currentLang === 'fr'
-    ? `${dishes} plat${dishes > 1 ? 's' : ''} sélectionné${dishes > 1 ? 's' : ''} (${portions} repas au total, 4 pers./plat)${subscriptionNote} :\n`
-    : `${dishes} dish${dishes > 1 ? 'es' : ''} selected (${portions} meals total, 4 people/dish)${subscriptionNote}:\n`;
+    ? `${dishes} plat${dishes > 1 ? 's' : ''} sélectionné${dishes > 1 ? 's' : ''} (${portions} repas au total, ${currentPersons} pers./plat)${subscriptionNote} :\n`
+    : `${dishes} dish${dishes > 1 ? 'es' : ''} selected (${portions} meals total, ${currentPersons} people/dish)${subscriptionNote}:\n`;
   document.getElementById('f-message').value = header + names;
 }
 
