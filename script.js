@@ -115,7 +115,7 @@ function updatePriceDisplay() {
     const num = el.querySelector('.price-num');
     if (num) num.textContent = el.dataset[key];
   });
-  document.querySelectorAll('.price-per[data-per1-fr]').forEach(el => {
+  document.querySelectorAll('[data-per1-fr]').forEach(el => {
     const frVal = el.dataset[`per${currentPersons}Fr`];
     const enVal = el.dataset[`per${currentPersons}En`];
     if (frVal) el.dataset.fr = frVal;
